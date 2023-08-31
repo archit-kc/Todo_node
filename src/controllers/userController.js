@@ -2,7 +2,6 @@ const UserModel = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const env = require("../../.env");
 
 const getUsers = asyncHandler(async (req, res) => {
     const users = await UserModel.find();
@@ -46,7 +45,7 @@ const login = asyncHandler(async (req, res) => {
                     userId: user.id
                 },
             },
-            env.JWT_SECRET_KEY,
+            process.env.JWT_SECRET_KEY,
             {expiresIn : "5m"}
         )
         res.status(200).json({accessToken : accessToken});
